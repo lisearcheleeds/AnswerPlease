@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Serialization;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
@@ -24,6 +23,8 @@ namespace AnswerPlease
         [SerializeField] Button ngButton;
         [SerializeField] Button[] commandButtons;
         [SerializeField] Text[] commandButtonTexts;
+        
+        [SerializeField] GameObject gameOverObject;
 
         bool IsShowQuestionText => currentTexts != null;
 
@@ -38,14 +39,28 @@ namespace AnswerPlease
         public void StartGame(Action endCallback)
         {
             this.endCallback = endCallback;
-            
-            gameObject.SetActive(true);
 
-            HideQuestionText();
-
+            Reset();
             StartCoroutine(BeltConveyor());
         }
-        
+
+        void Reset()
+        {
+            gameObject.SetActive(true);
+            gameOverObject.SetActive(false);
+            HideQuestionText();
+
+            foreach (var robot in robots)
+            {
+                Destroy(robot.gameObject);
+            }
+            
+            robots.Clear();
+            currentTexts = null;
+            talkCoroutine = null;
+            talkTexts.Clear();
+        }
+
         void Awake()
         {
             okButton.onClick.AddListener(OnClickOKButton);
@@ -119,7 +134,7 @@ namespace AnswerPlease
                     var robot = GetRobot();
                     robot.BeltConveyorQueueIndex = lastBeltConveyorQueueIndex + 1;
 
-                    robot.IsBadAI = Random.Range(0.0f, 100.0f) < 20.0f;
+                    robot.IsBadAI = Random.Range(0.0f, 100.0f) < 820.0f;
                     
                     robot.State = Robot.RobotState.InBeltConveyor;
                     robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 150);
@@ -127,7 +142,7 @@ namespace AnswerPlease
                     var robotTransform = robot.transform;
                     robotTransform.SetParent(laneParent, true);
                     robotTransform.localScale = Vector3.one * 0.5f;
-                    robotTransform.localPosition = Vector3.left * 600;
+                    robotTransform.localPosition = Vector3.left * (600 + robot.BeltConveyorQueueIndex * 150);
                 }
 
                 yield return null;
@@ -210,6 +225,16 @@ namespace AnswerPlease
                 foreach (var child in children)
                 {
                     Destroy(child);                    
+                }
+
+                if (currentRobot.IsBadAI)
+                {
+                    gameOverObject.SetActive(true);
+                    StartCoroutine(WaitForSeconds(3.0f, () =>
+                    {
+                        gameObject.SetActive(false);
+                        endCallback();
+                    }));
                 }
             }
         }
@@ -299,6 +324,12 @@ namespace AnswerPlease
         {
             robot.State = Robot.RobotState.Cache;
             robot.gameObject.SetActive(false);
+        }
+
+        IEnumerator WaitForSeconds(float time, Action callback)
+        {
+            yield return new WaitForSeconds(time);
+            callback();
         }
     }
 }
