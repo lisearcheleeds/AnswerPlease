@@ -134,7 +134,7 @@ namespace AnswerPlease
                     var robot = GetRobot();
                     robot.BeltConveyorQueueIndex = lastBeltConveyorQueueIndex + 1;
 
-                    robot.IsBadAI = Random.Range(0.0f, 100.0f) < 820.0f;
+                    robot.IsBadAI = Random.Range(0.0f, 100.0f) < 20.0f;
                     
                     robot.State = Robot.RobotState.InBeltConveyor;
                     robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 150);

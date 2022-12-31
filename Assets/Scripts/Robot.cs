@@ -29,8 +29,17 @@ namespace AnswerPlease
 
         void Update()
         {
-            var direction = (targetPosition - transform.localPosition).normalized;
-            transform.localPosition = transform.localPosition + direction * transform.localScale.x * Time.deltaTime * 300.0f;
+            var prevPosition = transform.localPosition;
+            var direction = (targetPosition - prevPosition).normalized;
+            var move = direction * transform.localScale.x * Time.deltaTime * 300.0f;
+
+            if ((targetPosition - prevPosition).sqrMagnitude < move.sqrMagnitude)
+            {
+                transform.localPosition = targetPosition;
+                return;
+            }
+
+            transform.localPosition = prevPosition + direction * transform.localScale.x * Time.deltaTime * 300.0f;
         }
     }
 }
