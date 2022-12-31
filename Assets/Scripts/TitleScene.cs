@@ -29,15 +29,14 @@ namespace AnswerPlease
         {
             titleButton.interactable = false;
 
-            /*
             infoText.text = "ゲームを初期化中";
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
             infoText.text = "ネットワークに接続中";
             yield return new WaitForSeconds(0.5f);
             infoText.text = "アセットをロード中";
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(0.5f);
             infoText.text = "読み込んでます";
-            yield return new WaitForSeconds(2.0f);
+            yield return new WaitForSeconds(0.5f);
             infoText.text = "他のプレイヤーを待っています";
             yield return new WaitForSeconds(1.0f);
             infoText.text = "他のプレイヤーを待っています.";
@@ -47,7 +46,6 @@ namespace AnswerPlease
             infoText.text = "他のプレイヤーを待っています...";
             yield return new WaitForSeconds(1.0f);
             infoText.text = "他のプレイヤーを待っています....";
-            */
             yield return new WaitForSeconds(1.0f);
             infoText.text = "タップしてゲームを開始";
             
