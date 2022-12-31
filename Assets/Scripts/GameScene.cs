@@ -76,7 +76,7 @@ namespace AnswerPlease
                                 var robotsTransform = robot.transform;
                                 robotsTransform.SetParent(faceWindowParent, true);
                                 robotsTransform.localScale = Vector3.one;
-                                robotsTransform.localPosition = Vector3.left * 500;
+                                robotsTransform.localPosition = Vector3.left * 250;
                             }
 
                             break;
@@ -91,7 +91,7 @@ namespace AnswerPlease
                             if (!robot.IsNeedMove)
                             {
                                 robot.State = Robot.RobotState.OutBeltConveyor;
-                                robot.SetTargetPosition(Vector3.right * 1200);
+                                robot.SetTargetPosition(Vector3.right * 600);
                                 
                                 var robotsTransform = robot.transform;
                                 robotsTransform.SetParent(laneParent, true);
@@ -122,12 +122,12 @@ namespace AnswerPlease
                     robot.IsBadAI = Random.Range(0.0f, 100.0f) < 20.0f;
                     
                     robot.State = Robot.RobotState.InBeltConveyor;
-                    robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 300);
+                    robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 150);
 
                     var robotTransform = robot.transform;
                     robotTransform.SetParent(laneParent, true);
                     robotTransform.localScale = Vector3.one * 0.5f;
-                    robotTransform.localPosition = Vector3.left * 1200;
+                    robotTransform.localPosition = Vector3.left * 600;
                 }
 
                 yield return null;
@@ -192,7 +192,7 @@ namespace AnswerPlease
             if (currentRobot != null)
             {
                 currentRobot.State = Robot.RobotState.OutBox;
-                currentRobot.SetTargetPosition(Vector3.right * 500);
+                currentRobot.SetTargetPosition(Vector3.right * 250);
                 
                 DequeueBeltConveyor();
 
@@ -224,7 +224,7 @@ namespace AnswerPlease
             if (currentRobot != null)
             {
                 currentRobot.State = Robot.RobotState.DustChute;
-                currentRobot.SetTargetPosition(Vector3.down * 500);
+                currentRobot.SetTargetPosition(Vector3.down * 250);
 
                 DequeueBeltConveyor();
                 
@@ -276,7 +276,7 @@ namespace AnswerPlease
                 if (robot.State == Robot.RobotState.InBeltConveyor)
                 {
                     robot.BeltConveyorQueueIndex--;
-                    robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 300);
+                    robot.SetTargetPosition(Vector3.left * robot.BeltConveyorQueueIndex * 150);
                 }
             }
         }

@@ -21,7 +21,7 @@ namespace AnswerPlease
             this.isRobot = isRobot;
             this.text = text;
 
-            container.localPosition = new Vector3(isRobot ? 0 : 25, 0, 0);
+            container.localPosition = new Vector3(isRobot ? -10 : 10, 0, 0);
             talkBackground.color = isRobot ? robotColor : userColor;
         }
 
@@ -30,7 +30,7 @@ namespace AnswerPlease
             for (var i = 0; i < text.Length + 1; i++)
             {
                 talkText.text = text.Substring(0, i);
-                yield return new WaitForSeconds(isRobot ? 0.2f : 0.05f);
+                yield return new WaitForSeconds(isRobot ? 0.1f : 0.02f);
             }
         }
     }

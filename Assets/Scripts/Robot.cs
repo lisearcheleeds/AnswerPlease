@@ -30,7 +30,7 @@ namespace AnswerPlease
         void Update()
         {
             var direction = (targetPosition - transform.localPosition).normalized;
-            transform.localPosition = transform.localPosition + direction * transform.localScale.x * 2.0f;
+            transform.localPosition = transform.localPosition + direction * transform.localScale.x * 1.0f;
         }
     }
 }
