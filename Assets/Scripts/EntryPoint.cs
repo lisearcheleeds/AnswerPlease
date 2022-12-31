@@ -9,6 +9,8 @@ namespace AnswerPlease
         
         void Awake()
         {
+            Application.targetFrameRate = 60;
+            
             titleScene.gameObject.SetActive(false);
             gameScene.gameObject.SetActive(false);
             
